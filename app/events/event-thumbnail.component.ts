@@ -11,7 +11,13 @@ import { Component, Input } from '@angular/core'
       <!-- using expression to add class-->
       <!--<div [ngClass]="{green: event?.time === '8:00 am', bold: event?.time === '8:00 am'}" [ngSwitch]= 'event?.time'>Time: {{event?.time}}-->
       <!-- using function expression-->
-      <div [ngClass]="getStartTimeClass()" [ngSwitch]= 'event?.time'>Time: {{event?.time}}
+      <!--<div [ngClass]="getStartTimeClass()" [ngSwitch]= 'event?.time'>Time: {{event?.time}}-->
+      <!--Simple style binding -->
+      <!--<div [style.color]="event?.time === '8:00 am' ? '#003300' : '#bbb'" [ngSwitch]= 'event?.time'>Time: {{event?.time}}-->
+      <!-- using expression to apply style-->
+      <!--<div [ngStyle]="{'color': event?.time === '8:00 am' ? '#003300' : '#bbb', 'font-weight': event?.time === '8:00 am'  ? 'bold' : 'normal'}" [ngSwitch]= 'event?.time'>Time: {{event?.time}}-->
+      <!-- using function expression-->
+      <div [ngStyle]="getStartTimeStyle()" [ngSwitch]= 'event?.time'>Time: {{event?.time}}
           <span *ngSwitchCase = "'8:00 am'">(Early Start)</span>
           <span *ngSwitchCase = "'10:00 am'">(Late Start)</span>
           <span *ngSwitchDefault>(Normal Start)</span>
@@ -26,8 +32,9 @@ import { Component, Input } from '@angular/core'
     </div>
   `,
     styles: [`
-        .green {color: #003300 !important;}
-        .bold {font-weight: bold;}
+        // No more using
+        //.green {color: #003300 !important;}
+        //.bold {font-weight: bold;}
         .thumbnail {min-height:210px;}
         .pad-left {margin-left:10px;}
         .well div {color: #bbb}
@@ -36,7 +43,8 @@ import { Component, Input } from '@angular/core'
 export class EventThumbnailComponent {
     @Input() event:any
 
-    getStartTimeClass() {
+    // No more using
+    //getStartTimeClass() {
         //Way one
         //const isEarlyStart = this.event && this.event.time === '8:00 am'
         //return {green: isEarlyStart, bold: isEarlyStart}
@@ -47,8 +55,14 @@ export class EventThumbnailComponent {
         //return ''
 
         //Way three
+        //if (this.event && this.event.time === '8:00 am')
+        //    return ['green', 'bold']
+        //return []
+    //}
+
+    getStartTimeStyle():any {
         if (this.event && this.event.time === '8:00 am')
-            return ['green', 'bold']
-        return []
+            return {color: '#003300', 'font-weight': 'bold'}
+        return {}
     }
 }
