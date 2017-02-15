@@ -6,7 +6,12 @@ import { Component, Input } from '@angular/core'
     <div class="well hoverwell thumbnail">
       <h2>{{event?.name}}</h2>
       <div>Date: {{event?.date}}</div>
-      <div [ngSwitch]= 'event?.time'>Time: {{event?.time}}
+      <!--Simple class binding -->
+      <!--<div [class.green]="event?.time === '8:00 am'" [ngSwitch]= 'event?.time'>Time: {{event?.time}}-->
+      <!-- using expression to add class-->
+      <!--<div [ngClass]="{green: event?.time === '8:00 am', bold: event?.time === '8:00 am'}" [ngSwitch]= 'event?.time'>Time: {{event?.time}}-->
+      <!-- using function expression-->
+      <div [ngClass]="getStartTimeClass()" [ngSwitch]= 'event?.time'>Time: {{event?.time}}
           <span *ngSwitchCase = "'8:00 am'">(Early Start)</span>
           <span *ngSwitchCase = "'10:00 am'">(Late Start)</span>
           <span *ngSwitchDefault>(Normal Start)</span>
@@ -21,6 +26,8 @@ import { Component, Input } from '@angular/core'
     </div>
   `,
     styles: [`
+        .green {color: #003300 !important;}
+        .bold {font-weight: bold;}
         .thumbnail {min-height:210px;}
         .pad-left {margin-left:10px;}
         .well div {color: #bbb}
@@ -28,4 +35,20 @@ import { Component, Input } from '@angular/core'
 })
 export class EventThumbnailComponent {
     @Input() event:any
+
+    getStartTimeClass() {
+        //Way one
+        //const isEarlyStart = this.event && this.event.time === '8:00 am'
+        //return {green: isEarlyStart, bold: isEarlyStart}
+
+        //Way two
+        //if (this.event && this.event.time === '8:00 am')
+        //    return 'green bold'
+        //return ''
+
+        //Way three
+        if (this.event && this.event.time === '8:00 am')
+            return ['green', 'bold']
+        return []
+    }
 }
