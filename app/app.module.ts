@@ -21,6 +21,7 @@ import {
     Toastr,
     JQ_TOKEN,
     TOASTR_TOKEN,
+    SimpleModalComponent,
     CollapsibleWellComponent
 } from './common/index';
 import { Error404Component } from './errors/404.component';
@@ -48,6 +49,7 @@ declare let jQuery: Object;
         CreateSessionComponent,
         SessionListComponent,
         CollapsibleWellComponent,
+        SimpleModalComponent,
         DurationPipe
     ],
     providers: [
