@@ -1,22 +1,16 @@
-import { Injectable } from '@angular/core'
+import { OpaqueToken } from '@angular/core'
 
-declare let toastr:any
+export let TOASTR_TOKEN = new OpaqueToken('toastr');
 
-@Injectable()
-export class ToastrService {
-    success(message:string, title?:string) {
-        toastr.success(message, title)
-    }
-
-    info(message:string, title?:string) {
-        toastr.info(message, title)
-    }
-
-    warning(message:string, title?:string) {
-        toastr.warning(message, title)
-    }
-
-    error(message:string, title?:string) {
-        toastr.error(message, title)
-    }
+export interface Toastr {
+    success (msg: string, title?: string): void;
+    warning (msg: string, title?: string): void;
+    error (msg: string, title?: string): void;
+    info (msg: string, title?: string): void;
 }
+
+//Previously we had a wrapper on toastr service and now its not begin used in that sense and had been removed
+
+// Previous Note
+//We can access globally available toastr service(like toastr.success(eventName))
+// but ts compiler will complain & difficult to test so we introduced a warpper on to toastr service
