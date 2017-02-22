@@ -13,6 +13,8 @@ import {
     EventThumbnailComponent,
     CreateSessionComponent,
     SessionListComponent,
+    UpvoteComponent,
+    VoterService,
     DurationPipe
 } from './events/index'
 import { EventsAppComponent } from './events-app.component'
@@ -30,8 +32,8 @@ import { AuthService } from './user/auth.service';
 
 import { appRoutes } from './routes';
 
-declare let toastr: Toastr;
-declare let jQuery: Object;
+declare let toastr:Toastr;
+declare let jQuery:Object;
 
 @NgModule({
     imports: [
@@ -51,11 +53,13 @@ declare let jQuery: Object;
         SessionListComponent,
         CollapsibleWellComponent,
         SimpleModalComponent,
+        UpvoteComponent,
         ModalTriggerDirective,
         DurationPipe
     ],
     providers: [
         EventService,
+        VoterService,
         {
             provide: TOASTR_TOKEN,
             useValue: toastr
