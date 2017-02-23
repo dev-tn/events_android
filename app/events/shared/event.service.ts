@@ -15,8 +15,11 @@ export class EventService {
         }).catch(this.handleError);
     }
 
-    getEvent(id:number):IEvent {
-        return EVENTS.find(event => event.id === id)
+    //TODO: To better understand it watch video [14_03_Listening to Resolved Data Changes.mp4]
+    getEvent(id:number):Observable<IEvent> {
+        return this.http.get('/api/events/' + id).map((response:Response) => {
+            return <IEvent>response.json();
+        }).catch(this.handleError);
     }
 
     saveEvent(event) {

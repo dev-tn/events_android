@@ -8,7 +8,7 @@ import {
     EventService,
     EventListResolver,
     EventsListComponent,
-    EventRouteActivator,
+    EventResolver,
     CreateEventComponent,
     EventDetailsComponent,
     EventThumbnailComponent,
@@ -72,7 +72,7 @@ declare let jQuery:Object;
             provide: JQ_TOKEN,
             useValue: jQuery
         },
-        EventRouteActivator,
+        EventResolver,
         EventListResolver,
         AuthService,
         {
