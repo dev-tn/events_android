@@ -1,5 +1,5 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing'
-import { DebugElement } from '@angular/core'
+import { DebugElement, Component, NO_ERRORS_SCHEMA } from '@angular/core'
 import { SessionListComponent } from './session-list.component'
 import { UpvoteComponent } from './upvote.component'
 import { DurationPipe } from '../shared/duration.pipe'
@@ -28,15 +28,17 @@ describe('SessionListComponent', () => {
             imports: [],
             declarations: [
                 SessionListComponent,
-                UpvoteComponent,
+                //UpvoteComponent,
                 DurationPipe,
-                CollapsibleWellComponent
+                //CollapsibleWellComponent
             ],
             providers: [
                 {provide: AuthService, useValue: mockAuthService},
                 {provide: VoterService, useValue: mockVoterService}
             ],
-            schemas: []
+            schemas: [
+                NO_ERRORS_SCHEMA // used it with great care, for now we have ignored the children components(CollapsibleWell & Upvote)
+            ]
         }).compileComponents(); // for systemjs no need for webpack
     }))
 
