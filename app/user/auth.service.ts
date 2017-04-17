@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core'
-import { IUser } from './user.model'
-import { Http, Response, Headers, RequestOptions } from '@angular/http'
-import { Observable } from 'rxjs/Rx'
+import { Injectable } from '@angular/core';
+import { IUser } from './user.model';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
 
 @Injectable()
 export class AuthService {
-    currentUser:IUser
+    currentUser:IUser;
 
     constructor(private http:Http) {
     }
@@ -13,7 +13,7 @@ export class AuthService {
     loginUser(userName:string, password:string) {
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
-        let loginInfo = {username: userName, password: password}
+        let loginInfo = {username: userName, password: password};
 
         return this.http.post('/api/login', JSON.stringify(loginInfo), options).do(resp => {
             if (resp) {
@@ -21,7 +21,7 @@ export class AuthService {
             }
         }).catch(error => {
             return Observable.of(false);
-        })
+        });
     }
 
     isAuthenticated() {
@@ -34,7 +34,7 @@ export class AuthService {
                 return response.json();
             }
             else
-                return {}
+                return {};
         }).do(currentUser => {
             if (!!currentUser.userName) {
                 this.currentUser = currentUser;
@@ -53,8 +53,8 @@ export class AuthService {
     }
 
     updateCurrentUser(firstName:string, lastName:string) {
-        this.currentUser.firstName = firstName
-        this.currentUser.lastName = lastName
+        this.currentUser.firstName = firstName;
+        this.currentUser.lastName = lastName;
 
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});

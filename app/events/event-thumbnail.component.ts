@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core'
-import { IEvent } from './shared/index'
+import { Component, Input } from '@angular/core';
+import { IEvent } from './shared/index';
 
 @Component({
     selector: 'event-thumbnail',
@@ -42,28 +42,28 @@ import { IEvent } from './shared/index'
     `]
 })
 export class EventThumbnailComponent {
-    @Input() event:IEvent
+    @Input() event:IEvent;
 
     // No more using
-    //getStartTimeClass() {
-        //Way one
-        //const isEarlyStart = this.event && this.event.time === '8:00 am'
-        //return {green: isEarlyStart, bold: isEarlyStart}
+    // getStartTimeClass() {
+        // Way one
+        // const isEarlyStart = this.event && this.event.time === '8:00 am'
+        // return {green: isEarlyStart, bold: isEarlyStart}
 
-        //Way two
-        //if (this.event && this.event.time === '8:00 am')
+        // Way two
+        // if (this.event && this.event.time === '8:00 am')
         //    return 'green bold'
-        //return ''
+        // return ''
 
-        //Way three
-        //if (this.event && this.event.time === '8:00 am')
+        // Way three
+        // if (this.event && this.event.time === '8:00 am')
         //    return ['green', 'bold']
-        //return []
-    //}
+        // return []
+    // }
 
     getStartTimeStyle():any {
         if (this.event && this.event.time === '8:00 am')
-            return {color: '#003300', 'font-weight': 'bold'}
-        return {}
+            return {color: '#003300', 'font-weight': 'bold'};
+        return {};
     }
 }

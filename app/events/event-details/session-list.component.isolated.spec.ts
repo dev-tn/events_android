@@ -1,5 +1,5 @@
-import { SessionListComponent } from './session-list.component'
-import { ISession } from '../shared/event.model'
+import { SessionListComponent } from './session-list.component';
+import { ISession } from '../shared/event.model';
 
 describe('SessionListComponent', () => {
     let component:SessionListComponent;
@@ -26,7 +26,7 @@ describe('SessionListComponent', () => {
             component.ngOnChanges();
 
             expect(component.visibleSessions.length).toBe(2);
-        })
+        });
 
         it('should sort session correctly', () => {
 
@@ -43,6 +43,6 @@ describe('SessionListComponent', () => {
             component.ngOnChanges();
 
             expect(component.visibleSessions[3].name).toBe('session 4');
-        })
-    })
-})
+        });
+    });
+});

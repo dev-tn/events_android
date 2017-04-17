@@ -4,19 +4,19 @@ import {Pipe, PipeTransform} from '@angular/core';
 
 export class DurationPipe implements PipeTransform {
 
-    //taking number as input and returning string as output
+    // taking number as input and returning string as output
     transform(value:number):string {
         switch (value) {
             case 1:
-                return 'Half Hour'
+                return 'Half Hour';
             case 2:
-                return 'One Hour'
+                return 'One Hour';
             case 3:
-                return 'Half Day'
+                return 'Half Day';
             case 4:
-                return 'Full Day'
+                return 'Full Day';
             default:
-                return value.toString()
+                return value.toString();
         }
     }
 }

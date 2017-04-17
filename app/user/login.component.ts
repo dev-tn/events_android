@@ -1,6 +1,6 @@
-import { Component } from '@angular/core'
-import { Router } from '@angular/router'
-import { AuthService } from './auth.service'
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from './auth.service';
 
 @Component({
     templateUrl: 'app/user/login.component.html',
@@ -21,12 +21,12 @@ export class LoginComponent {
             if (!resp) {
                 this.loginInvalid = true;
             } else {
-                this.router.navigate(['events'])
+                this.router.navigate(['events']);
             }
-        })
+        });
     }
 
     cancel() {
-        this.router.navigate(['events'])
+        this.router.navigate(['events']);
     }
 }
