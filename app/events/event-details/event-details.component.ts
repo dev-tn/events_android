@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { EventService } from '../shared/event.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { IEvent, ISession } from '../shared/index';
+import { AttendeeService } from './attendee.service';
+import { AuthService } from '../../user/auth.service';
+import { TOASTR_TOKEN, Toastr } from '../../common/toastr.service';
 
 @Component({
     templateUrl: '/app/events/event-details/event-details.component.html',
@@ -17,7 +20,11 @@ export class EventDetailsComponent {
     filterBy:string = 'all';
     sortBy:string = 'votes';
 
-    constructor(private eventService:EventService, private route:ActivatedRoute) {
+    constructor(private attendeeService:AttendeeService,
+                private eventService:EventService,
+                private auth:AuthService,
+                private route:ActivatedRoute,
+                @Inject(TOASTR_TOKEN) private toastr:Toastr) {
 
     }
 
@@ -44,4 +51,23 @@ export class EventDetailsComponent {
         this.addMode = false;
     }
 
+    joinEvent() {
+
+        if (this.event.attendees < this.event.attendeesCount && !this.attendeeService.userHasJoined(this.event, this.auth.currentUser.userName)) {
+            this.attendeeService.addAttendee(this.event, this.auth.currentUser.userName).subscribe((event) => {
+                this.toastr.success('Successfully joined the event.');
+            });
+        }
+        else
+            this.toastr.info('No more seats left');
+    }
+
+    isJoined() {
+        if (this.attendeeService.userHasJoined(this.event, this.auth.currentUser.userName)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }

@@ -17,6 +17,7 @@ import {
     SessionListComponent,
     UpvoteComponent,
     VoterService,
+    AttendeeService,
     LocationValidator,
     DurationPipe
 } from './events/index';
@@ -64,6 +65,7 @@ declare let jQuery:Object;
     ],
     providers: [
         EventService,
+        AttendeeService,
         VoterService,
         {
             provide: TOASTR_TOKEN,

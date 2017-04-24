@@ -13,6 +13,20 @@ exports.getEvent = function(req, res) {
   res.send(event);
 }
 
+exports.updateEvent = function (req, res) {
+    var updatedEvent = req.body;
+
+    var foundEvent = events.find(event => event.id === parseInt(req.params.id));
+
+    if (foundEvent) {
+        foundEvent.attendees = updatedEvent.attendees;
+        foundEvent.attendeesList = updatedEvent.attendeesList;
+    }
+
+    res.send(foundEvent);
+    res.end();
+}
+
 exports.searchSessions = function(req, res) {
 	var term = req.query.search.toLowerCase();
   var results = [];

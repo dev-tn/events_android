@@ -2,23 +2,38 @@
     <img [src]="event?.imageUrl" [alt]="event?.name" class="event-image">
 
     <div class="row">
-        <div class="col-md-11">
+        <div class="col-md-10">
             <h2>{{event?.name | uppercase }} </h2>
+        </div>
+        <div *ngIf="auth.isAuthenticated()">
+            <button *ngIf="!isJoined()" class="btn btn-primary" (click)="joinEvent()">
+                Join this Event
+            </button>
+            <label *ngIf="isJoined()" class="btn btn-success" disabled>
+                Joined the Event
+            </label>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div><strong>Date:</strong> {{event?.date | date:'short' }}</div>
             <div><strong>Time:</strong> {{event?.time}}</div>
             <div><strong>Price:</strong> {{event?.price | currency:'USD':true }}</div>
+            <div *ngIf="event?.attendees">Attendees: {{event?.attendees }}</div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <address>
                 <strong>Address:</strong><br/>
                 {{event?.location?.address}}<br/>
                 {{event?.location?.city}}, {{event?.location?.country}}
             </address>
+        </div>
+        <div class="col-md-4">
+            <strong>Attendees Name:</strong><br/>
+            <span *ngFor='let username of event.attendeesList'>
+                {{username | uppercase}}
+            </span>
         </div>
     </div>
 

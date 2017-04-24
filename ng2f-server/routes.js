@@ -15,6 +15,7 @@ module.exports = function(app) {
   app.get('/api/events', events.getEvents);
   app.get('/api/events/:eventId', events.getEvent);
   app.post('/api/events', events.saveEvent);
+  app.put('/api/events/:id', events.updateEvent);
   app.get('/api/sessions/search', events.searchSessions);
   app.delete('/api/events/:eventId/sessions/:sessionId/voters/:voterId', events.deleteVoter);
   app.post('/api/events/:eventId/sessions/:sessionId/voters/:voterId', events.addVoter);

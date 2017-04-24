@@ -25,6 +25,11 @@ export class CreateEventComponent {
     }
 
     saveEvent(formValues) {
+
+        // No of persons attending this event/session
+        formValues['attendees'] = 0; // initial state
+        formValues['attendeesList'] = []; // initial state
+
         this.eventService.saveEvent(formValues).subscribe(event => {
             this.router.navigate(['/events']);
             this.isDirty = false;

@@ -5,6 +5,8 @@ export interface IEvent {
     time: string;
     price: number;
     imageUrl: string;
+    attendeesCount:number;
+    attendees:number;
     location?: {
         address: string
         city: string
@@ -12,6 +14,7 @@ export interface IEvent {
     };
     onlineUrl?: string;
     sessions: ISession[];
+    attendeesList: string[];
 }
 
 export interface ISession {
