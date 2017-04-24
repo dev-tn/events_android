@@ -4,7 +4,7 @@ import { IEvent } from './shared/index';
 @Component({
     selector: 'event-thumbnail',
     template: `
-    <div [routerLink]="['/events', event.id]" class="well hoverwell thumbnail">
+    <div [routerLink]="['/events', event._id]" class="well hoverwell thumbnail">
       <h2>{{event?.name | uppercase }}</h2>
       <div>Date: {{event?.date | date:'short' }}</div>
       <!--Simple class binding -->

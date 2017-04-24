@@ -17,7 +17,7 @@ export class EventService {
     }
 
     // TODO: To better understand it watch video [14_03_Listening to Resolved Data Changes.mp4]
-    getEvent(id:number):Observable<IEvent> {
+    getEvent(id:string):Observable<IEvent> {
         return this.http.get('/api/events/' + id).map((response:Response) => {
             return <IEvent>response.json();
         }).catch(this.handleError);

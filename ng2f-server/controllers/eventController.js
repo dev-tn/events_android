@@ -1,17 +1,43 @@
+var mongodb = require('mongodb').MongoClient;
+var objectId = require('mongodb').ObjectID;
 var events = require('../database/events'),
   getNextId = require('./getNextId'),
   url = require('url');
 
 var nextId = getNextId(events);
 
-exports.getEvents = function(req, res) {
-  res.send(events);
-}
+exports.getEvents = function (req, res) {
+    //res.send(events);
+    var url = 'mongodb://localhost:27070/eventsApp';
 
-exports.getEvent = function(req, res) {
-  var event = events.find(event => event.id === +req.params.eventId);
-  res.send(event);
-}
+    mongodb.connect(url, function (err, db) {
+        var collection = db.collection('events');
+
+        collection.find({}).toArray(
+            function (err, results) {
+                res.send(results);
+                db.close();
+            }
+        );
+    });
+};
+
+exports.getEvent = function (req, res) {
+
+    var id = new objectId(req.params.eventId);
+    var url = 'mongodb://localhost:27070/eventsApp';
+
+    mongodb.connect(url, function (err, db) {
+        var collection = db.collection('events');
+
+        collection.findOne({_id: id},
+            function (err, results) {
+                res.send(results);
+                db.close();
+            });
+    });
+
+};
 
 exports.updateEvent = function (req, res) {
     var updatedEvent = req.body;
@@ -48,7 +74,7 @@ exports.deleteVoter = function(req, res) {
 
   var session = events.find(event => event.id === eventId)
     .sessions.find(session => session.id === sessionId)
-    
+
   session.voters = session.voters.filter(voter => voter !== voterId);
   res.send(session);
 }
@@ -60,25 +86,37 @@ exports.addVoter = function(req, res) {
 
   var event = events.find(event => event.id === eventId)
   var session = event.sessions.find(session => session.id === sessionId)
-    
+
   session.voters.push(voterId);
   res.send(session);
 }
 
-exports.saveEvent = function(req, res) {
-  var event = req.body;
-  
-  if (event.id) {
-    var index = events.findIndex(e => e.id === event.id)
-    events[index] = event
-  } else {
-    event.id = nextId;
-    nextId++;
-    event.sessions = [];
-    events.push(event);
-  }
-  res.send(event);
-  res.end(); 
-}
+exports.saveEvent = function (req, res) {
+
+    var url = 'mongodb://localhost:27070/eventsApp';
+
+    mongodb.connect(url, function (err, db) {
+        var collection = db.collection('events');
+        var event = {
+            name: req.body.name,
+            date: req.body.date,
+            time: req.body.time,
+            price: req.body.price,
+            imageUrl: req.body.imageUrl,
+            attendeesCount: req.body.attendeesCount,
+            attendees: req.body.attendees,
+            location: req.body.location,
+            onlineUrl: req.body.onlineUrl,
+            sessions: [],
+            attendeesList: []
+        };
+
+        collection.insert(event,
+            function (err, results) {
+                res.send(results);
+                db.close();
+            });
+    });
+};
 
 
