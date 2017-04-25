@@ -9,15 +9,14 @@ export class AttendeeService {
     constructor(private http:Http) {
     }
 
-    addAttendee(event:IEvent, attendeeName:string) {
+    addAttendee(event:any, attendeeName:string) {
 
         event.attendees++;
         event.attendeesList.push(attendeeName);
 
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
-        let url = `/api/events/${event.id}`;
-
+        let url = `/api/events/${event._id}`;
         return this.http.put(url, JSON.stringify(event), options).catch(this.handleError);
     }
 

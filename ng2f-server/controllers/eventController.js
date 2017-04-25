@@ -40,18 +40,26 @@ exports.getEvent = function (req, res) {
 };
 
 exports.updateEvent = function (req, res) {
+
+    var id = new objectId(req.params.id);
+
     var updatedEvent = req.body;
+    var event = {
+        attendees: req.body.attendees,
+        attendeesList: req.body.attendeesList
+    };
 
-    var foundEvent = events.find(event => event.id === parseInt(req.params.id));
+    var url = 'mongodb://localhost:27070/eventsApp';
 
-    if (foundEvent) {
-        foundEvent.attendees = updatedEvent.attendees;
-        foundEvent.attendeesList = updatedEvent.attendeesList;
-    }
+    mongodb.connect(url, function (err, db) {
+        var collection = db.collection('events');
 
-    res.send(foundEvent);
-    res.end();
-}
+        collection.updateOne({_id: id}, {$set: event}, function (err, results) {
+            res.send(results);
+            db.close();
+        });
+    });
+};
 
 exports.searchSessions = function(req, res) {
 	var term = req.query.search.toLowerCase();
