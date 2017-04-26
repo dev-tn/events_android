@@ -1,0 +1,43 @@
+<h1>Sign Up Form</h1>
+<hr>
+<div class="col-md-6">
+    <form #newUserForm="ngForm" (ngSubmit)="saveUser(newUserForm.value)" autocomplete="off" novalidate>
+        <div class="form-group"
+             [ngClass]="{'error': newUserForm.controls.firstName?.invalid && newUserForm.controls.firstName?.touched}">
+            <label for="firstName">First Name:</label>
+            <em *ngIf="newUserForm.controls.firstName?.invalid && (newUserForm.controls.firstName?.touched)">Required</em>
+            <input (ngModel)="firstName" name="firstName" required id="firstName" type="text" class="form-control"
+                   placeholder="Your first name..."/>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name:</label>
+            <input (ngModel)="lastName" name="lastName" id="lastName" type="text" class="form-control"
+                   placeholder="Your last name..."/>
+        </div>
+        <div class="form-group"
+             [ngClass]="{'error': newUserForm.controls.email?.invalid && newUserForm.controls.email?.touched}">
+            <label for="email">E-mail:</label>
+            <em *ngIf="newUserForm.controls.email?.invalid && (newUserForm.controls.email?.touched)">Required</em>
+            <input (ngModel)="email" name="email" required id="email" type="email"
+                   class="form-control" placeholder="email..."/>
+        </div>
+        <div class="form-group"
+             [ngClass]="{'error': newUserForm.controls.username?.invalid && newUserForm.controls.username?.touched}">
+            <label for="username">Username:</label>
+            <em *ngIf="newUserForm.controls.username?.invalid && (newUserForm.controls.username?.touched)">Required</em>
+            <input (ngModel)="username" name="username" required id="username" type="text" class="form-control"
+                   placeholder="Your username..."/>
+        </div>
+        <div class="form-group"
+             [ngClass]="{'error': newUserForm.controls.password?.invalid && newUserForm.controls.password?.touched}">
+            <label for="password">Password:</label>
+            <em *ngIf="newUserForm.controls.password?.invalid && (newUserForm.controls.password?.touched)">Required</em>
+            <input (ngModel)="password" name="password" required id="password" type="password"
+                   class="form-control" placeholder="password..."/>
+        </div>
+
+        <button type="submit" [disabled]="newUserForm.invalid" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-default" (click)="cancel()">Cancel
+        </button>
+    </form>
+</div>

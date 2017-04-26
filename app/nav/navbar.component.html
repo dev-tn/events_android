@@ -32,6 +32,9 @@
                             Welcome {{auth.currentUser.firstName}}
                         </a>
                     </li>
+                    <li>
+                        <a *ngIf="!auth.isAuthenticated()" [routerLink]="['user/signup']">Sign Up</a>
+                    </li>
                 </ul>
             </div>
             <form id="searchForm" class="navbar-form navbar-right" (ngSubmit)="searchSessions(searchTerm)">

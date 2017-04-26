@@ -1,3 +1,4 @@
+var mongodb = require('mongodb').MongoClient;
 var users = require('../database/users'),
   getNextId = require('./getNextId');
 
@@ -16,15 +17,26 @@ exports.updateUser = function(req, res) {
   res.end();
 }
 
-exports.createUser = function(req, res) {
-  var newUser = req.body;
-  newUser.id = nextId;
-  nextId++;
-  users.push(newUser);
-  
-  res.send(newUser);
-  res.end(); 
-}
+exports.createUser = function (req, res) {
+  var url = 'mongodb://localhost:27070/eventsApp';
+
+  mongodb.connect(url, function (err, db) {
+    var collection = db.collection('users');
+    var user = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      username: req.body.username,
+      password: req.body.password,
+      email: req.body.email
+    };
+
+    collection.insertOne(user,
+        function (err, results) {
+          res.send(results);
+          db.close();
+        });
+  });
+};
 
 exports.getUsers = function(req, res) {
   res.send(users);

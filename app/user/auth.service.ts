@@ -61,4 +61,18 @@ export class AuthService {
 
         return this.http.put(`/api/users/${this.currentUser.id}`, JSON.stringify(this.currentUser), options);
     }
+
+    saveUser(user):Observable<IUser> {
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers: headers});
+
+        return this.http.post('/api/users', JSON.stringify(user), options).map((response:Response)=> {
+            return response.json();
+        }).catch(this.handleError);
+    }
+
+    private handleError(error:Response) {
+        return Observable.throw(error.statusText);
+    }
+
 }
